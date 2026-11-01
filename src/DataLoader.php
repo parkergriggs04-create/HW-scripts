@@ -17,7 +17,7 @@ class DataLoader {
         }
         $data = json_decode($fileInfo, true);
         if(json_last_error() !== JSON_ERROR_NONE) {
-            throw new Exception("Invalid JSON format");
+            throw new Exception("Invalid JSON format" . json_last_error_msg());
         }
         $records = $data['records'] ?? null;
         if(!is_array($records)) {
