@@ -1,6 +1,7 @@
 <?php
-require_once 'DataLoader.php';
-require_once 'TrafficStopAnalyzer.php';
+require_once __DIR__ . '/../src/DataLoader.php';
+require_once __DIR__ . '/../src/BaseRecords.php';
+require_once __DIR__ . '/../src/DataAnalyze.php';
 $results = null;
 $errorMessage = null;
 $executionTimeMs = null;
@@ -14,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['dataset'])) {
         }
         $loader = new DataLoader($_FILES['dataset']['tmp_name']);
         $records = $loader->loadRecords();
-        $analyzer = new TrafficStopAnalyzer($records);
+        $analyzer = new DataAnalyze($records);
         $results = $analyzer->analyze();
         $executionTimeMs = round((microtime(true) - $startTime) * 1000, 2);
         $processingTimestamp = date('Y-m-d H:i:s T');
